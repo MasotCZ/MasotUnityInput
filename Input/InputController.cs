@@ -319,7 +319,7 @@ namespace Masot.Standard.Input
             get { return MainCamera.ScreenToWorldPoint(new Vector3(MouseScreenPosition.x, MouseScreenPosition.y, -MainCamera.transform.position.z)); }
         }
 
-        private Vector3 WorldToScreenMulti
+        public Vector3 WorldToScreenMulti
         {
             get
             {
@@ -513,8 +513,21 @@ namespace Masot.Standard.Input
 
         public class ObjectInputArgument { }
 
-        public void Register(IEnumerable<ObjectInputArgument> inputArguments) { }
-        public void Remove(IEnumerable<ObjectInputArgument> inputArguments) { }
+        public void Register(IEnumerable<ObjectInputArgument> inputArguments, object key)
+        {
+            throw new NotImplementedException("TODO");
+        }
+
+        public void Remove(IEnumerable<ObjectInputArgument> inputArguments)
+        {
+            throw new NotImplementedException("TODO");
+        }
+
+        public void Remove(object key)
+        {
+            throw new NotImplementedException("TODO");
+
+        }
 
         /// <summary>
         /// 
