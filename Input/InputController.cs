@@ -146,6 +146,7 @@ namespace Masot.Standard.Input
             //2 create Argument at runtime via reflection and supply the argument
             //probly best , could be slow and have problems with arguments
             //could be slowing down the event system, probly not
+
             callback.Invoke(Activator.CreateInstance(typeof(_T), input) as _T);
         }
     }
@@ -619,7 +620,44 @@ namespace Masot.Standard.Input
                 return;
             }
 
+            //raycast on UI
+            var worldRaycastResult = RaycastOntoWorld();
+            var screenRaycastResult = RaycastOntoScreen();
+
+            if ((worldRaycastResult is not null && worldRaycastResult.Count != 0) ||
+                (screenRaycastResult is not null && screenRaycastResult.Count != 0))
+            {
+                //hit Ui element
+                //cancel trigger invoke
+                KeyDown(e.keyCode);
+                return;
+            }
+
             TriggerEvent(new InputDefine(e.keyCode, type));
+        }
+
+        public ICollection<RaycastResult> RaycastOntoWorld()
+        {
+            if (_screenRaycaster == null)
+            {
+                return null;
+            }
+
+            var ret = new List<RaycastResult>();
+            _screenRaycaster.Raycast(new PointerEventData(eventSystem), ret);
+            return ret;
+        }
+
+        public ICollection<RaycastResult> RaycastOntoScreen()
+        {
+            if (_worldRaycaster == null)
+            {
+                return null;
+            }
+
+            var ret = new List<RaycastResult>();
+            _worldRaycaster.Raycast(new PointerEventData(eventSystem), ret);
+            return ret;
         }
 
         private void MouseKeyEvent(EventData e)
