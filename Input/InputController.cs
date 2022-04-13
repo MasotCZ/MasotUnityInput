@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Masot.Standard.Utility;
 
 namespace Masot.Standard.Input
 {
